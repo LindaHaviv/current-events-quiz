@@ -1,33 +1,42 @@
-<html class="html">
+<!DOCTYPE html>
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Current Events Quiz</title>
+    <title>Fox News IQ Quiz</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 
-<body>
-    <div class="container">
-        <h1>Welcome to my Quiz</h1>
+<body onload="startQuiz()">
+    <div class="container container-padding">
+        <h1 class="font-style font-headline-style">News IQ Quiz</h1>
         <div id="quizContent" class="row quiz">
+            <div id="status"></div>
             <div class="col-sm-12">
-                <h2 id="quizHeader"></h2>
+                <h2 id="quizHeader" class="font-style"></h2>
             </div>
             <div id="questions" class="row">
-                <div class="col-sm-6"> <a data-id="1" class="btn btn-default answer ">1</a> </div>
-                <div class="col-sm-6"> <a data-id="2" class="btn btn-default answer ">2</a> </div>
-                <div class="col-sm-6"> <a data-id="3" class="btn btn-default answer ">3</a> </div>
-                <div class="col-sm-6"> <a data-id="4" class="btn btn-default answer ">4</a> </div>
+                <div class="padding-col-6 col-sm-6">
+                    <a data-id="1" class="btn btn-default answer">1</a>
+                </div>
+                <div class="padding-col-6 col-sm-6">
+                    <a data-id="2" class="btn btn-default answer">2</a>
+                </div>
+                <div class="padding-col-6 col-sm-6">
+                    <a data-id="3" class="btn btn-default answer">3</a>
+                </div>
+                <div class="padding-col-6 col-sm-6">
+                    <a data-id="4" class="btn btn-default answer">4</a>
+                </div>
             </div>
             <div class="row pageMovement">
-                <div id="btnPrevious" class="col-xs-5 col-sm-4 btn btn-primary pull-left">Previous</div>
-                <div id="btnNext" class="col-xs-5 col-sm-4 col-sm-offset-4 col-xs-offset-2 btn btn-primary pull-right">Next</div>
+                <div id="btnPrevious" class="col-xs-5 col-sm-4 btn btn-custom btn-primary pull-left">Previous</div>
+                <div id="btnNext" class="col-xs-5 col-sm-4 col-sm-offset-4 col-xs-offset-2 btn btn-custom btn-primary pull-right">Next</div>
             </div>
-            <div class="row ">
-                <div id="finishQuiz" class=" btn btn-success btn-block  hide ">Submit Quiz</div>
+            <div class="row">
+                <div id="finishQuiz" class="btn btn-custom btn-success btn-block hide ">Submit Quiz</div>
             </div>
-            <div class="row progress">
+             <div class="row progress">
                 <div id="progressBar" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:50%"> 0% Complete </div>
             </div>
         </div>
@@ -35,4 +44,5 @@
 </body>
 
 </html>
+<script src="json/trivia.json"></script>
 <script src="js/main.js"></script>
