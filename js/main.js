@@ -1,11 +1,9 @@
+var lengthofobject = data.quizcontent.length;
 var curPage = 0,
     correct = 0;
 var myAnswers = [];
-var myQuiz = [
-    ["What is addEventListener() used for?", 1, "attach a click event", "nothing", "never use it", "listens to HTML"],
-    ["What does DOM stand for", 1, "Document Object Model ", "Document Over Mountains", "Do Over Models", "Nothing"],
-    ["What does BOM stand for", 4, "document Object Model", "nothing", "Big Object Model", " Browser Object Model "]
-];
+
+// console.log(data.quizcontent);
 var myHeader = document.getElementById("quizHeader");
 var classname = document.getElementsByClassName("answer");
 var myQuestion = document.getElementById("questions");
@@ -13,19 +11,25 @@ var progressBar = document.getElementById("progressBar");
 var btnNext = document.getElementById("btnNext");
 var btnPrevious = document.getElementById("btnPrevious");
 var btnFinish = document.getElementById("finishQuiz");
+var timer;
 checkPage();
-btnNext.addEventListener("click", moveNext);
+btnNext.addEventLisenetr("click", moveNext);
 btnPrevious.addEventListener("click", moveBack);
 btnFinish.addEventListener("click", endQuiz);
 for (var i = 0; i < classname.length; i++) {
-    classname[i].addEventListener('click', myAnswer, false);
+    classname[i].addEventListener("click", myAnswer, false);
 }
+
+// function startQuiz() {
+//         var output = "<div class='output'>START QUIZ</div>";
+//         document.getElementById("quizContent").innerHTML = output;
+// }
 
 function myAnswer() {
     var idAnswer = this.getAttribute("data-id");
     /// check for correct answer
     myAnswers[curPage] = idAnswer;
-    if (myQuiz[curPage][1] == idAnswer) {
+    if (data.quizcontent[curPage].correct_answer == idAnswer) {
         //console.log('Correct Answer');
     } else {
         //console.log('Wrong Answer');
@@ -48,13 +52,15 @@ function moveNext() {
     ///check if an answer has been made
     if (myAnswers[curPage]) {
         //console.log('okay to proceed');
-        if (curPage < (myQuiz.length - 1)) {
+        if (curPage < (data.quizcontent.length - 1)) {
+            clearTimeout(timer);
             curPage++;
             checkPage(curPage);
+            countDown(10, "status");
         } else {
             ///check if quiz is completed
             //console.log(curPage + ' ' + myQuiz.length);
-            if (myQuiz.length >= curPage) {
+            if (data.quizcontent.length >= curPage) {
                 endQuiz();
             } else {
                 //console.log('end of quiz Page ' + curPage);
@@ -71,15 +77,15 @@ function endQuiz() {
         var questionResult = "NA";
         //console.log('Quiz Over');
         for (var i = 0; i < myAnswers.length; i++) {
-            if (myQuiz[i][1] == myAnswers[i]) {
-                questionResult = '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>';
+            if (data.quizcontent[i].correct_answer == myAnswers[i]) {
+                questionResult = '<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>' + '<BR>';
                 correct++;
             } else {
-                questionResult = '<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>';
+                questionResult = '<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>' + '<BR>';
             }
-            output = output + '<p>Question ' + (i + 1) + ' ' + questionResult + '</p> ';
+            output = output + '<span></span>' + '<p>Question ' + (i + 1) + ' ' + questionResult + data.quizcontent[i].question + '<BR>' + "Correct Answer: " + data.quizcontent[i][("a" + (data.quizcontent[i].correct_answer))] + '</p> ';
         }
-        output = output + '<p>You scored ' + correct + ' out of ' + myQuiz.length + '</p></div> ';
+        output = output + '<p>You scored ' + correct + ' out of ' + data.quizcontent.length + '</p></div> ';
         document.getElementById("quizContent").innerHTML = output;
     } else {
         //console.log('not answered');
@@ -93,16 +99,16 @@ function checkPage(i) {
     } else {
         btnPrevious.classList.remove("hide");
     }
-    if ((curPage + 1) < (myQuiz.length)) {
+    if ((curPage + 1) < (data.quizcontent.length)) {
         btnNext.classList.remove("hide");
     } else {
         btnNext.classList.add("hide");
         btnFinish.classList.remove("hide");
     }
-    myHeader.innerHTML = myQuiz[curPage][0];
+    myHeader.innerHTML = data.quizcontent[curPage].question;
     for (var i = 0; i < myQuestion.children.length; i++) {
         var curNode = myQuestion.children[i];
-        curNode.childNodes[1].innerHTML = capitalise(myQuiz[curPage][(i + 2)]);
+        curNode.childNodes[1].innerHTML = capitalise(data.quizcontent[curPage][("a" + (i + 1))]);
         //check if answered already
         if (myAnswers[curPage] == (i + 1)) {
             curNode.classList.add("selAnswer");
@@ -111,7 +117,7 @@ function checkPage(i) {
         }
     }
     ///update progress bar
-    var increment = Math.ceil((curPage) / (myQuiz.length) * 100);
+    var increment = Math.ceil((curPage) / (data.quizcontent.length) * 100);
     progressBar.style.width = (increment) + '%';
     progressBar.innerHTML = (increment) + '%';
 }
@@ -127,4 +133,17 @@ function moveBack() {
 
 function capitalise(str) {
     return str.substr(0, 1).toUpperCase() + str.substr(1);
+}
+
+function countDown(secs, elem) {
+    var element = document.getElementById(elem);
+    element.innerHTML = secs + " seconds left ";
+    if (secs < 1) {
+        clearTimeout(timer);
+        element.innerHTML = '<h2>Countdown Complete!</h2>';
+    } else {
+        secs--;
+        timer = setTimeout('countDown(' + secs + ', "' + elem + '")', 1000);
+    }
+
 }
