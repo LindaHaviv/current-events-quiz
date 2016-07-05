@@ -1,4 +1,12 @@
-.col-sm-6 {
+@import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow);
+
+body {
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+.padding-col-6 {
     padding: 10px;
 }
 
@@ -14,7 +22,7 @@
     font-weight: bold;
 }
 
-.container {
+.container-padding {
     padding: 20px;
 }
 
@@ -28,6 +36,7 @@
 
 .progress {
     margin-top: 25px;
+    color: hsl(223, 100%, 71%);
 }
 
 #finishQuiz {
@@ -47,5 +56,33 @@
 }
 
 .selAnswer {
-    background: #4E9267;
+    background-color: hsl(223, 100%, 71%)
 }
+
+.font-headline-style {
+  color:#fff;
+  font-size: 44px;
+  text-shadow:#7a7a7a 4px 3px 0;
+}
+
+.font-style {
+    font-family: 'PT Sans Narrow', sans-serif;
+}
+
+.btn-custom {
+  background-color: hsl(223, 100%, 71%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e5ecff", endColorstr="#6b95ff");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#e5ecff), to(#6b95ff));
+  background-image: -moz-linear-gradient(top, #e5ecff, #6b95ff);
+  background-image: -ms-linear-gradient(top, #e5ecff, #6b95ff);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e5ecff), color-stop(100%, #6b95ff));
+  background-image: -webkit-linear-gradient(top, #e5ecff, #6b95ff);
+  background-image: -o-linear-gradient(top, #e5ecff, #6b95ff);
+  background-image: linear-gradient(#e5ecff, #6b95ff);
+  border-color: #6b95ff #6b95ff hsl(223, 100%, 65%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.39);
+  -webkit-font-smoothing: antialiased;
+}
+
